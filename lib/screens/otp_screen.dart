@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
@@ -84,6 +85,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       if (otpCode != null) {
                         verifyOtp(context, otpCode!);
                       } else {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Enter 6-Digit Code")));
                         // showSnackBar(context, "Enter 6-Digit code");
                       }
                     },
