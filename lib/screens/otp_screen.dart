@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:instyl_fashion_project/controllers/auth_controller.dart';
 import 'package:pinput/pinput.dart';
 
 import '../widgets/custom_button.dart';
@@ -119,6 +120,13 @@ class _OtpScreenState extends State<OtpScreen> {
 
   // verify otp
   void verifyOtp(BuildContext context, String userOtp) {
-
+    AuthController.instance.verifyOtp(
+        context: context,
+        verificationId: widget.verificationId,
+        userOtp: userOtp,
+        onSuccess: (){
+          // checking user existing in database
+        },
+    );
   }
 }

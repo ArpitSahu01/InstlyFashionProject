@@ -77,4 +77,9 @@ void verifyOtp({
 
   }
 }
+
+
+void signOut() async{
+    await _firebaseAuth.signOut();
+}
 }
