@@ -8,6 +8,7 @@ import 'package:instyl_fashion_project/screens/otp_screen.dart';
 
 class AuthController extends GetxController {
   Rx<bool> isPhoneAuthLoading = false.obs;
+  Rx<bool> isOtpLoading  = false.obs;
   static AuthController instance = Get.find();
   late Rx<User?> _user;
   String? _uid;
@@ -64,17 +65,18 @@ void verifyOtp({
   required Function onSuccess,
 }) async{
 
+  isOtpLoading.value = true;
   try{
-
     PhoneAuthCredential creds =PhoneAuthProvider.credential(verificationId: verificationId, smsCode: userOtp);
     await _firebaseAuth.signInWithCredential(creds);
     if(_user.value != null){
       _uid = _user.value!.uid;
       onSuccess();
     }
-
+    isOtpLoading.value = false;
   } on FirebaseAuthException catch (e){
-
+  ScaffoldMessenger.of(context).showSnackBar( SnackBar(content: Text(e.message.toString())));
+  isOtpLoading.value = false;
   }
 }
 
