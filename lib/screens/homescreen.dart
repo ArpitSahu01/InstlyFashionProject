@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:instyl_fashion_project/controllers/auth_controller.dart';
 
 
@@ -37,8 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 radius: 50,
               ),
               const SizedBox(height: 20),
-              Text("USER NAME"),
-              Text("NAME"),
+              Obx(() => Text("USER NAME: ${AuthController.instance.userName.value}",style: TextStyle(fontSize: 22),)),
+              Obx(() => Text("NAME: ${AuthController.instance.displayName.value}",style: TextStyle(fontSize: 22),)),
             ],
           )),
     );

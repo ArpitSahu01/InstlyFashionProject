@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:instyl_fashion_project/models/user_model.dart';
 import 'package:instyl_fashion_project/screens/homescreen.dart';
 import 'package:instyl_fashion_project/screens/onBoarding_screen.dart';
 import 'package:instyl_fashion_project/screens/otp_screen.dart';
@@ -13,12 +14,14 @@ import '../screens/user_register_screen.dart';
 class AuthController extends GetxController {
   Rx<bool> isPhoneAuthLoading = false.obs;
   Rx<bool> isOtpLoading  = false.obs;
+  Rx<bool> isUserRegister = false.obs;
   static AuthController instance = Get.find();
   late Rx<User?> _user;
   String? _uid;
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-  String userName = "";
-  String displayName = "";
+  Rx<String> userName = "".obs;
+  Rx<String> displayName = "".obs;
+  Rx<String> phoneNumber = "".obs;
 
   String? get uid => _uid;
 
@@ -41,6 +44,7 @@ class AuthController extends GetxController {
 
   Future<void> signInWithPhone(BuildContext context, String number) async {
     isPhoneAuthLoading.value = true;
+    phoneNumber.value = number;
     try {
       await _firebaseAuth.verifyPhoneNumber(
           phoneNumber: number,
@@ -98,6 +102,8 @@ Future<bool> checkExistingUser() async{
     print(responseData);
     if(responseData.containsKey("id")){
       print("EXISTING_USER");
+      userName.value = responseData["user_name"];
+      displayName.value = responseData["display_name"];
       Get.offAll(const HomeScreen());
       return true;
     }else{
@@ -107,6 +113,49 @@ Future<bool> checkExistingUser() async{
     }
 }
 
+
+storeUserData({
+  required String firstName,
+  required String lastName,
+  required String nameUser,
+}) async{
+  isUserRegister.value = true;
+  try{
+    final url = Uri.parse("http://user-service.pokee.app/v1/user/");
+    final response = await http.post(url,
+        headers: {
+          'Content-Type':'application/json'
+        },
+        body:jsonEncode({
+          "id":uid,
+          "first_name":firstName,
+          "last_name":lastName,
+          "user_name":nameUser,
+          "phone_number":phoneNumber.value,
+        }),
+
+    );
+    final responseData = jsonDecode(response.body);
+    print(responseData);
+    final userData = UserModel.fromJson({
+      "id":uid,
+      "first_name":firstName,
+      "last_name":lastName,
+      "user_name": nameUser,
+      "phone_number":phoneNumber.value,
+    });
+    userName.value = userData.userName;
+    displayName.value = "${userData.firstName} ${userData.lastName}";
+     Get.offAll(HomeScreen());
+    isUserRegister.value = false;
+    print(responseData);
+  }catch(e){
+    print(e.toString());
+  }finally{
+    isUserRegister.value = false;
+  }
+
+}
 
 
 
