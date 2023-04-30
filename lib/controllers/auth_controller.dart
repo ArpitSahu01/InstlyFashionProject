@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:instyl_fashion_project/screens/homescreen.dart';
 import 'package:instyl_fashion_project/screens/onBoarding_screen.dart';
@@ -84,4 +85,10 @@ void verifyOtp({
 void signOut() async{
     await _firebaseAuth.signOut();
 }
+
+Future<bool> checkExistingUser() async{
+    final url = Uri.parse("uri");
+    return true;
+}
+
 }
