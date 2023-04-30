@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:instyl_fashion_project/screens/homescreen.dart';
 import 'package:instyl_fashion_project/screens/onBoarding_screen.dart';
 import 'package:instyl_fashion_project/screens/otp_screen.dart';
+
+import '../screens/user_register_screen.dart';
 
 class AuthController extends GetxController {
   Rx<bool> isPhoneAuthLoading = false.obs;
@@ -14,6 +17,8 @@ class AuthController extends GetxController {
   late Rx<User?> _user;
   String? _uid;
   FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  String userName = "";
+  String displayName = "";
 
   String? get uid => _uid;
 
@@ -87,8 +92,22 @@ void signOut() async{
 }
 
 Future<bool> checkExistingUser() async{
-    final url = Uri.parse("uri");
-    return true;
+    final url = Uri.parse("http://user-service.pokee.app/v1/user/${_user.value!.uid}");
+    final response = await http.get(url);
+    final responseData = jsonDecode(response.body) as Map<String,dynamic>;
+    print(responseData);
+    if(responseData.containsKey("id")){
+      print("EXISTING_USER");
+      Get.offAll(const HomeScreen());
+      return true;
+    }else{
+      print("NEW_USER");
+      Get.offAll(const UserRegistrationScreen());
+      return false;
+    }
 }
+
+
+
 
 }

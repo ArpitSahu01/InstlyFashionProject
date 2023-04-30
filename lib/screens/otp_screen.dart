@@ -129,6 +129,7 @@ class _OtpScreenState extends State<OtpScreen> {
         userOtp: userOtp,
         onSuccess: (){
           // checking user existing in database
+          AuthController.instance.checkExistingUser();
         },
     );
   }
