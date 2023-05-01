@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
 import 'package:instyl_fashion_project/auth_controller.dart';
 import 'package:pinput/pinput.dart';
 
@@ -76,20 +77,22 @@ class _OtpScreenState extends State<OtpScreen> {
                   },
                 ),
                 const SizedBox(height: 25),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: 50,
-                  child: CustomButton(
-                    text: "Verify",
-                    onPressed: () {
-                      if (otpCode != null) {
-                        verifyOtp( otpCode!);
-                      } else {
-                        // showSnackBar(context, "Enter 6-Digit code");
-                      }
-                    },
-                  ),
+                 Obx(
+                     ()=> SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
+                    child: AuthController.instance.isOtpLoading.value ? const CircularProgressIndicator():CustomButton(
+                      text: "Verify",
+                      onPressed: () {
+                        if (otpCode != null) {
+                          verifyOtp( otpCode!);
+                        } else {
+                          // showSnackBar(context, "Enter 6-Digit code");
+                        }
+                      },
+                    ),
                 ),
+                 ),
                 const SizedBox(height: 20),
                 const Text(
                   "Didn't receive any code?",
@@ -119,8 +122,9 @@ class _OtpScreenState extends State<OtpScreen> {
   // verify otp
   void verifyOtp(String userOtp) async{
     var isValid = await AuthController.instance.verifyOtp(userOtp);
-    // if(isValid){
-    //   AuthController.instance.checkUser();
-    // }
+    if(isValid){
+      AuthController.instance.checkUser();
+    }
   }
+
 }
