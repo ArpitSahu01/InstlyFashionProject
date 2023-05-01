@@ -5,6 +5,7 @@ import 'package:instyl_fashion_project/screens/homescreen.dart';
 import 'package:instyl_fashion_project/screens/onBoarding_screen.dart';
 import 'package:instyl_fashion_project/screens/otp_screen.dart';
 import 'package:instyl_fashion_project/screens/phone_auth_screen.dart';
+import 'package:instyl_fashion_project/screens/splash_screen.dart';
 import 'package:instyl_fashion_project/screens/user_register_screen.dart';
 
 void main() async{
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: SplashScreen(),
     );
   }
 }
