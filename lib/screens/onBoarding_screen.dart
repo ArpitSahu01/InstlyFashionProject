@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:instyl_fashion_project/screens/phone_auth_screen.dart';
 
 import '../widgets/custom_button.dart';
 
@@ -48,7 +50,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   height: 50,
                   child: CustomButton(
                     onPressed: () async {
-
+                    Get.offAll(const PhoneAuthScreen());
                     },
                     text: "Click to start",
                   ),
