@@ -16,6 +16,7 @@ class AuthController extends GetxController {
   var isOtpLoading = false.obs;
   var displayName = "".obs;
   var userName = "".obs;
+  var phoneNumber = "".obs;
 
   // variables
   final _auth = FirebaseAuth.instance;
@@ -84,11 +85,35 @@ try{
     }else{
       displayName.value = data["display_name"];
       userName.value = data["user_name"];
-      checking.value = true;
+      checking.value = false;
       Get.offAll(const HomeScreen());
     }
     isOtpLoading.value = false ;
   }
-  
 
+
+  Future<void> storeUserDate({required String userName,required String firstName,required lastName}) async{
+
+    try{
+      final url = Uri.parse("http://user-service.pokee.app/v1/user/");
+      final response = await http.post(url,headers: {
+        "Content-Type":"application/json"
+      },body: jsonEncode({
+        "id":firebaseUser.value!.uid,
+        "first_name":firstName,
+        "last_name":lastName,
+        "user_name":userName,
+        "phone_number":phoneNumber.value,
+      }));
+      final data = jsonDecode(response.body) as Map<String,dynamic>;
+      displayName.value = data["display_name"];
+      this.userName.value = data["user_name"];
+      checking.value = false;
+      Get.offAll(const HomeScreen());
+    } catch(e){
+      Fluttertoast.showToast(msg: "Enter correct details");
+    }
+
+
+}
 }

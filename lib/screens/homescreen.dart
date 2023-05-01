@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 20),
               Obx(()=> Text("USER NAME : ${AuthController.instance.userName}")),
-              Obx(()=> Text("NAME : ${AuthController.instance.userName}")),
+              Obx(()=> Text("NAME : ${AuthController.instance.displayName}")),
             ],
           )),
     );

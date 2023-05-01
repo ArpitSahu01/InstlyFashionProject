@@ -32,6 +32,7 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
 
   void sendPhoneNumber() {
       AuthController.instance.phoneAuthentication("+${selectedCountry.phoneCode}${phoneController.text.trim()}");
+      AuthController.instance.phoneNumber.value = phoneController.text.trim();
       Get.to(const OtpScreen());
   }
 

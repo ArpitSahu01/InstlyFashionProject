@@ -78,10 +78,10 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
                 const SizedBox(height: 25),
                  Obx(
-                     ()=> SizedBox(
+                     ()=> AuthController.instance.isOtpLoading.value ?const Center(child: const CircularProgressIndicator()): SizedBox(
                     width: MediaQuery.of(context).size.width,
                     height: 50,
-                    child: AuthController.instance.isOtpLoading.value ? const CircularProgressIndicator():CustomButton(
+                    child: CustomButton(
                       text: "Verify",
                       onPressed: () {
                         if (otpCode != null) {

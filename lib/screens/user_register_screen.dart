@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:instyl_fashion_project/auth_controller.dart';
 
 import '../widgets/custom_button.dart';
 
@@ -13,56 +15,37 @@ class UserRegistrationScreen extends StatefulWidget {
 
 class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
   File? image;
-  final nameController = TextEditingController();
+  final userController = TextEditingController();
+  final firstController = TextEditingController();
+  final lastController = TextEditingController();
   final emailController = TextEditingController();
-  final bioController = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
-    nameController.dispose();
+    userController.dispose();
+    firstController.dispose();
+    lastController.dispose();
     emailController.dispose();
-    bioController.dispose();
-  }
-
-  // for selecting image
-  void selectImage() async {
-    // image = await pickImage(context);
-    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SafeArea(
-        child:  SingleChildScrollView(
-          padding:
-          const EdgeInsets.symmetric(vertical: 25.0, horizontal: 5.0),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 5.0),
           child: Center(
             child: Column(
               children: [
-                InkWell(
-                  onTap: () => selectImage(),
-                  child: image == null
-                      ? const CircleAvatar(
-                    backgroundColor: Color(0xff1E6AC5),
-                    radius: 50,
-                    child: Icon(
-                      Icons.account_circle,
-                      size: 50,
-                      color: Colors.white,
-                    ),
-                  )
-                      : CircleAvatar(
-                    backgroundImage: FileImage(image!),
-                    radius: 50,
-                  ),
+                const SizedBox(
+                  height: 20,
                 ),
+                const Text("Register",style: TextStyle(fontSize: 32,fontWeight: FontWeight.w600,color: Color(0xff1E6AC5)),),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 5, horizontal: 15),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                   margin: const EdgeInsets.only(top: 20),
                   child: Column(
                     children: [
@@ -72,7 +55,7 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                         icon: Icons.account_circle,
                         inputType: TextInputType.name,
                         maxLines: 1,
-                        controller: nameController,
+                        controller: userController,
                       ),
 
                       // first name
@@ -81,7 +64,7 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                         icon: Icons.account_circle,
                         inputType: TextInputType.name,
                         maxLines: 1,
-                        controller: nameController,
+                        controller: firstController,
                       ),
 
                       // last name
@@ -90,7 +73,7 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                         icon: Icons.account_circle,
                         inputType: TextInputType.name,
                         maxLines: 1,
-                        controller: nameController,
+                        controller: lastController,
                       ),
 
                       // email
@@ -101,7 +84,6 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
                         maxLines: 1,
                         controller: emailController,
                       ),
-
                     ],
                   ),
                 ),
@@ -173,6 +155,9 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
 
   // store user data to database
   void storeData() async {
-
+    AuthController.instance.storeUserDate(
+        userName: userController.text.trim(),
+        firstName: firstController.text.trim(),
+        lastName: lastController.text.trim());
   }
 }
