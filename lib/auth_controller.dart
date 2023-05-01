@@ -53,8 +53,16 @@ class AuthController extends GetxController {
   }
 
   Future<bool> verifyOtp(String otp) async{
+try{
+  var credentials = await _auth.signInWithCredential(PhoneAuthProvider.credential(verificationId: verificationId.value, smsCode: otp));
+  return credentials.user != null ?  true:  false;
 
-    var credentials = await _auth.signInWithCredential(PhoneAuthProvider.credential(verificationId: verificationId.value, smsCode: otp));
-    return credentials.user != null ?  true:  false;
+}on FirebaseAuthException catch (e){
+  Fluttertoast.showToast(msg: e.toString());
+  return false;
+}
   }
+
+  
+
 }

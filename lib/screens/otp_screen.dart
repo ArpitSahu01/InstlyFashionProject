@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:instyl_fashion_project/auth_controller.dart';
 import 'package:pinput/pinput.dart';
 
 import '../widgets/custom_button.dart';
@@ -81,7 +83,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     text: "Verify",
                     onPressed: () {
                       if (otpCode != null) {
-                        verifyOtp(context, otpCode!);
+                        verifyOtp( otpCode!);
                       } else {
                         // showSnackBar(context, "Enter 6-Digit code");
                       }
@@ -115,7 +117,10 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   // verify otp
-  void verifyOtp(BuildContext context, String userOtp) {
-
+  void verifyOtp(String userOtp) async{
+    var isValid = await AuthController.instance.verifyOtp(userOtp);
+    if(isValid){
+      // AuthController.instance.checkUser();
+    }
   }
 }
