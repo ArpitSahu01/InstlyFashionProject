@@ -1,5 +1,8 @@
 import 'package:country_picker/country_picker.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:instyl_fashion_project/auth_controller.dart';
+import 'package:instyl_fashion_project/screens/otp_screen.dart';
 
 import '../widgets/custom_button.dart';
 
@@ -28,7 +31,8 @@ class _PhoneAuthScreenState extends State<PhoneAuthScreen> {
   );
 
   void sendPhoneNumber() {
-
+      AuthController.instance.phoneAuthentication("+${selectedCountry.phoneCode}${phoneController.text.trim()}");
+      Get.to(const OtpScreen());
   }
 
   @override

@@ -4,8 +4,7 @@ import 'package:pinput/pinput.dart';
 import '../widgets/custom_button.dart';
 
 class OtpScreen extends StatefulWidget {
-  final String verificationId;
-  const OtpScreen({super.key, required this.verificationId});
+  const OtpScreen({super.key});
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();

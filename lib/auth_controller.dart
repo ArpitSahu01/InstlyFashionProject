@@ -5,6 +5,7 @@ import 'package:instyl_fashion_project/screens/homescreen.dart';
 import 'package:instyl_fashion_project/screens/onBoarding_screen.dart';
 
 class AuthController extends GetxController {
+
   static AuthController instance = Get.find();
   var verificationId = ''.obs;
 
