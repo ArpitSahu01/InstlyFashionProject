@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:instyl_fashion_project/screens/phone_auth_screen.dart';
+
 import '../widgets/custom_button.dart';
 
-class SplashScreen extends StatefulWidget {
+class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
 
@@ -32,10 +26,9 @@ class _SplashScreenState extends State<SplashScreen> {
             padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 35),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-
-                const SizedBox(height: 20),
-                const Text(
+              children: const [
+                 SizedBox(height: 20),
+                 Text(
                   "pokee",
                   style: TextStyle(
                     fontSize: 50,
@@ -43,8 +36,6 @@ class _SplashScreenState extends State<SplashScreen> {
                     color: Colors.white,
                   ),
                 ),
-                const SizedBox(height: 20),
-
               ],
             ),
           ),

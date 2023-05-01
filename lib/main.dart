@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:instyl_fashion_project/controllers/auth_controller.dart';
+import 'package:instyl_fashion_project/auth_controller.dart';
 import 'package:instyl_fashion_project/screens/homescreen.dart';
 import 'package:instyl_fashion_project/screens/onBoarding_screen.dart';
 import 'package:instyl_fashion_project/screens/otp_screen.dart';
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return const GetMaterialApp(
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),
     );

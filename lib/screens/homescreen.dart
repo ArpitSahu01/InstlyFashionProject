@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:instyl_fashion_project/controllers/auth_controller.dart';
+import 'package:instyl_fashion_project/auth_controller.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -38,8 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 radius: 50,
               ),
               const SizedBox(height: 20),
-              Obx(() => Text("USER NAME: ${AuthController.instance.userName.value}",style: TextStyle(fontSize: 22),)),
-              Obx(() => Text("NAME: ${AuthController.instance.displayName.value}",style: TextStyle(fontSize: 22),)),
+              Obx(()=> Text("USER NAME : ${AuthController.instance.userName}")),
+              Obx(()=> Text("NAME : ${AuthController.instance.displayName}")),
             ],
           )),
     );

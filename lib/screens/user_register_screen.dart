@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:instyl_fashion_project/controllers/auth_controller.dart';
+import 'package:instyl_fashion_project/auth_controller.dart';
 
 import '../widgets/custom_button.dart';
 
@@ -15,102 +15,88 @@ class UserRegistrationScreen extends StatefulWidget {
 
 class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
   File? image;
-  final usernameController = TextEditingController();
-  final firstnameController = TextEditingController();
-  final lastnameController = TextEditingController();
+  final userController = TextEditingController();
+  final firstController = TextEditingController();
+  final lastController = TextEditingController();
   final emailController = TextEditingController();
 
   @override
   void dispose() {
     super.dispose();
-    usernameController.dispose();
-    firstnameController.dispose();
-    lastnameController.dispose();
+    userController.dispose();
+    firstController.dispose();
+    lastController.dispose();
     emailController.dispose();
-  }
-
-  // for selecting image
-  void selectImage() async {
-    // image = await pickImage(context);
-    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SafeArea(
-        child:  SingleChildScrollView(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 5.0),
-          child: Obx(
-            ()=> AuthController().isUserRegister.value? const CircularProgressIndicator(): Center(
-              child: Column(
-                children: [
-                  const SizedBox(height: 100,),
-                  const Center(
-                    child: Text("Register",style: TextStyle(
-                      fontSize: 40,
-                      color: Color(0xff1E6AC5),
-                      fontWeight: FontWeight.w600
-                    ),),
+          child: Center(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text("Register",style: TextStyle(fontSize: 32,fontWeight: FontWeight.w600,color: Color(0xff1E6AC5)),),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 5, horizontal: 15),
+                  margin: const EdgeInsets.only(top: 20),
+                  child: Column(
+                    children: [
+                      // user name
+                      textFeld(
+                        hintText: "User Name",
+                        icon: Icons.account_circle,
+                        inputType: TextInputType.name,
+                        maxLines: 1,
+                        controller: userController,
+                      ),
+
+                      // first name
+                      textFeld(
+                        hintText: "First Name",
+                        icon: Icons.account_circle,
+                        inputType: TextInputType.name,
+                        maxLines: 1,
+                        controller: firstController,
+                      ),
+
+                      // last name
+                      textFeld(
+                        hintText: "Last Name",
+                        icon: Icons.account_circle,
+                        inputType: TextInputType.name,
+                        maxLines: 1,
+                        controller: lastController,
+                      ),
+
+                      // email
+                      textFeld(
+                        hintText: "abc@example.com",
+                        icon: Icons.email,
+                        inputType: TextInputType.emailAddress,
+                        maxLines: 1,
+                        controller: emailController,
+                      ),
+                    ],
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 5, horizontal: 15),
-                    margin: const EdgeInsets.only(top: 20),
-                    child: Column(
-                      children: [
-                        // user name
-                        textFeld(
-                          hintText: "User Name",
-                          icon: Icons.account_circle,
-                          inputType: TextInputType.name,
-                          maxLines: 1,
-                          controller: usernameController,
-                        ),
-
-                        // first name
-                        textFeld(
-                          hintText: "First Name",
-                          icon: Icons.account_circle,
-                          inputType: TextInputType.name,
-                          maxLines: 1,
-                          controller: firstnameController,
-                        ),
-
-                        // last name
-                        textFeld(
-                          hintText: "Last Name",
-                          icon: Icons.account_circle,
-                          inputType: TextInputType.name,
-                          maxLines: 1,
-                          controller: lastnameController,
-                        ),
-
-                        // email
-                        textFeld(
-                          hintText: "abc@example.com",
-                          icon: Icons.email,
-                          inputType: TextInputType.emailAddress,
-                          maxLines: 1,
-                          controller: emailController,
-                        ),
-
-                      ],
-                    ),
+                ),
+                const SizedBox(height: 20),
+                SizedBox(
+                  height: 50,
+                  width: MediaQuery.of(context).size.width * 0.90,
+                  child: CustomButton(
+                    text: "Register",
+                    onPressed: () => storeData(),
                   ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    height: 50,
-                    width: MediaQuery.of(context).size.width * 0.90,
-                    child: CustomButton(
-                      text: "Register",
-                      onPressed: () => storeData(),
-                    ),
-                  )
-                ],
-              ),
+                )
+              ],
             ),
           ),
         ),
@@ -168,10 +154,10 @@ class _UserRegistrationScreenState extends State<UserRegistrationScreen> {
   }
 
   // store user data to database
-  void storeData() {
-    final firstName =firstnameController.text.trim();
-    final lastName = lastnameController.text.trim();
-    final userName = usernameController.text.trim();
-    AuthController.instance.storeUserData(firstName: firstName, lastName: lastName, nameUser: userName);
+  void storeData() async {
+    AuthController.instance.storeUserDate(
+        userName: userController.text.trim(),
+        firstName: firstController.text.trim(),
+        lastName: lastController.text.trim());
   }
 }

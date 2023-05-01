@@ -56,7 +56,7 @@ class AuthController extends GetxController {
           },
           codeSent: (verificationId,forceResendingToken){
             isPhoneAuthLoading.value = false;
-            Get.to(OtpScreen(verificationId: verificationId));
+            Get.to(OtpScreen());
           },
           codeAutoRetrievalTimeout: (_){
           });
