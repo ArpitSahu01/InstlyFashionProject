@@ -119,8 +119,8 @@ class _OtpScreenState extends State<OtpScreen> {
   // verify otp
   void verifyOtp(String userOtp) async{
     var isValid = await AuthController.instance.verifyOtp(userOtp);
-    if(isValid){
-      // AuthController.instance.checkUser();
-    }
+    // if(isValid){
+    //   AuthController.instance.checkUser();
+    // }
   }
 }

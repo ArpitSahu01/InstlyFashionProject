@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:instyl_fashion_project/auth_controller.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -19,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
             onPressed: () {
-
+              AuthController.instance.signOut();
             },
             icon: const Icon(Icons.exit_to_app),
           ),

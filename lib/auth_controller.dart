@@ -1,5 +1,6 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:instyl_fashion_project/screens/homescreen.dart';
 import 'package:instyl_fashion_project/screens/onBoarding_screen.dart';
@@ -63,6 +64,8 @@ try{
 }
   }
 
-  
+  // Future<bool> checkUser() async{
+  //
+  // }
 
 }
